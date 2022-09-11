@@ -11,47 +11,6 @@ resource "aws_iam_access_key" "dev" {
   user = aws_iam_user.dev.name
 }
 
-# resource "aws_iam_user_policy" "dev_ro" {
-#   name = "dynamodb-full-access"
-#   user = aws_iam_user.dev.name
-
-#   policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Action": [
-#         "dynamodb:List*",
-#         "dynamodb:DescribeReservedCapacity*",
-#         "dynamodb:DescribeLimits",
-#         "dynamodb:DescribeTimeToLive"
-#       ],
-#       "Resource": "*",
-#       "Effect": "Allow"
-#     },
-#     {
-#       "Action": [
-#         "dynamodb:BatchGet*",
-#         "dynamodb:DescribeStream",
-#         "dynamodb:DescribeTable",
-#         "dynamodb:Get*",
-#         "dynamodb:Query",
-#         "dynamodb:Scan",
-#         "dynamodb:BatchWrite*",
-#         "dynamodb:CreateTable",
-#         "dynamodb:Delete*",
-#         "dynamodb:Update*",
-#         "dynamodb:PutItem"
-#       ],
-#       "Resource": [
-#         "arn:aws:dynamodb:*:*:table/pqs"
-#       ],
-#       "Effect": "Allow"
-#     }
-#   ]
-# }
-# EOF
-# }
 resource "aws_iam_user_policy" "dev_rw" {
   name = "dynamodb-full-access"
   user = aws_iam_user.dev.name
@@ -87,7 +46,7 @@ resource "aws_iam_user_policy" "dev_rw" {
                 "dynamodb:Update*",
                 "dynamodb:PutItem"
             ],
-            "Resource": "arn:aws:dynamodb:*:*:table/pqs"
+            "Resource": "arn:aws:dynamodb:*:*:table/Parsley"
         }
     ]
 }
@@ -139,12 +98,12 @@ resource "aws_iam_user_policy" "manager_ro" {
                 "dynamodb:DescribeTable"                
             ],
             "Resource": [
-                "arn:aws:dynamodb:*:*:table/pqs"
+                "arn:aws:dynamodb:*:*:table/Parsley"
             ],
             "Condition": {
                 "ForAllValues:StringEquals": {
                     "dynamodb:LeadingKeys": [
-                        "pqs-2"
+                        "Parsley-2"
                     ]
                 }
             }
